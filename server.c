@@ -6,11 +6,16 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:58:07 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/29 16:48:13 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:47:10 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	ft_putchar_fd(char c, int fd)
+{
+	write(fd, &c, 1);
+}
 
 void	ft_btoa(int sig)
 {
@@ -22,7 +27,7 @@ void	ft_btoa(int sig)
 	bit++;
 	if (bit == 8)
 	{
-		printf("%c", i);
+		ft_putchar_fd(i, 1);
 		bit = 0;
 		i = 0;
 	}
@@ -44,7 +49,8 @@ int	main(int argc, char **argv)
 	{
 		signal(SIGUSR1, ft_btoa);
 		signal(SIGUSR2, ft_btoa);
-		pause();
+		// pause();
+		usleep(1000000);
 	}
 	return (0);
 }

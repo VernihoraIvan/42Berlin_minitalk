@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:58:11 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/29 14:16:17 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/04/29 17:16:31 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	ft_atoi(const char *str)
 	}
 	return (res * sign);
 }
+
 
 void	ft_atob(int pid, char c)
 {
