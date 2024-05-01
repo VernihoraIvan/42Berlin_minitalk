@@ -6,7 +6,7 @@
 #    By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 16:25:12 by iverniho          #+#    #+#              #
-#    Updated: 2024/04/29 17:15:52 by iverniho         ###   ########.fr        #
+#    Updated: 2024/05/01 11:24:22 by iverniho         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC_C = client.c
 SRC_S = server.c
 OBJ_C = ${SRC_C:.c=.o}
 OBJ_S = ${SRC_S:.c=.o}
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -O3
 RM = rm -f
 RF = rm -rf
 

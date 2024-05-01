@@ -6,7 +6,7 @@
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 12:58:11 by iverniho          #+#    #+#             */
-/*   Updated: 2024/04/29 17:16:31 by iverniho         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:37:39 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	ft_atoi(const char *str)
 	return (res * sign);
 }
 
-
 void	ft_atob(int pid, char c)
 {
 	int	bit;
@@ -47,7 +46,7 @@ void	ft_atob(int pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
-		if ((c & (0x01 << bit)))
+		if ((c & (1 << bit)))
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
@@ -61,11 +60,11 @@ int	main(int argc, char **argv)
 	int	pid;
 	int	i;
 
-	i = 0;
+	i = -1;
 	if (argc == 3)
 	{
 		pid = ft_atoi(argv[1]);
-		while(argv[2][i++])
+		while (argv[2][++i])
 			ft_atob(pid, argv[2][i]);
 	}
 	else
