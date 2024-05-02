@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 12:58:07 by iverniho          #+#    #+#             */
-/*   Updated: 2024/05/02 13:55:48 by iverniho         ###   ########.fr       */
+/*   Created: 2024/05/02 12:34:49 by iverniho          #+#    #+#             */
+/*   Updated: 2024/05/02 13:57:42 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ void	ft_putchar_fd(char c, int fd)
 	write(fd, &c, 1);
 }
 
-void	ft_btoa(int sig)
+void	ft_btoa(int sig, siginfo_t *info, void *context)
 {
 	static int		i;
 	static int		bit;
 
+	(void)context;
 	if (sig == SIGUSR1)
 		i |= (1 << bit);
 	bit++;
 	if (bit == 8)
 	{
+		if (i == 0)
+			kill(info->si_pid, SIGUSR2);
 		ft_putchar_fd(i, 1);
 		bit = 0;
 		i = 0;
@@ -62,8 +65,12 @@ void	ft_putnbr_fd(int n, int fd)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
+	int					pid;
+	struct sigaction	sa;
 
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_btoa;
+	sigemptyset(&sa.sa_mask);
 	(void)argv;
 	if (argc != 1)
 	{
@@ -76,8 +83,8 @@ int	main(int argc, char **argv)
 	write(1, "\n", 1);
 	while (argc == 1)
 	{
-		signal(SIGUSR1, ft_btoa);
-		signal(SIGUSR2, ft_btoa);
+		sigaction(SIGUSR1, &sa, NULL);
+		sigaction(SIGUSR2, &sa, NULL);
 		pause ();
 	}
 	return (0);

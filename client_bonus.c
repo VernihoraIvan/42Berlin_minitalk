@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   client.c                                           :+:      :+:    :+:   */
+/*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: iverniho <iverniho@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/29 12:58:11 by iverniho          #+#    #+#             */
-/*   Updated: 2024/05/02 13:28:41 by iverniho         ###   ########.fr       */
+/*   Created: 2024/05/02 12:36:29 by iverniho          #+#    #+#             */
+/*   Updated: 2024/05/02 13:53:03 by iverniho         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+void	confirm_msg(int signal)
+{
+	if (signal == SIGUSR2)
+		write(1, "message recieved\n", 17);
+}
 
 int	ft_atoi(const char *str)
 {
@@ -50,7 +56,7 @@ void	ft_atob(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(1300);
+		usleep(1000);
 		bit++;
 	}
 }
@@ -66,6 +72,8 @@ int	main(int argc, char **argv)
 		pid = ft_atoi(argv[1]);
 		while (argv[2][++i])
 			ft_atob(pid, argv[2][i]);
+		signal(SIGUSR2, confirm_msg);
+		ft_atob(pid, '\0');
 	}
 	else
 	{
